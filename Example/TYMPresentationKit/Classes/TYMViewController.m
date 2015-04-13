@@ -1,6 +1,6 @@
 //
 //  TYMViewController.m
-//  TYMPresentationKit
+//  Presentation
 //
 //  Created by Yiming Tang on 04/13/2015.
 //  Copyright (c) 2014 Yiming Tang. All rights reserved.
@@ -14,16 +14,11 @@
 
 @implementation TYMViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UIViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
 }
 
 @end
