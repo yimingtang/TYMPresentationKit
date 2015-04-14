@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Yiming Tang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIColor (TYMPresentationKit)
+
++ (instancetype)tym_whiteColor;
 
 @end

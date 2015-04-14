@@ -143,7 +143,7 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
         for (NSDictionary *dictionary in array) {
             descriptor = [TYMDescriptor descriptorWithDictionary:dictionary];
             if (descriptor) {
-                descriptor.page = self;
+//                descriptor.page = self;
                 [_mutableDescriptors addObject:descriptor];
             }
         }

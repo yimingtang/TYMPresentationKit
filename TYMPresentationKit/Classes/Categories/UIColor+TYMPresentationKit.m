@@ -10,4 +10,8 @@
 
 @implementation UIColor (TYMPresentationKit)
 
++ (instancetype)tym_whiteColor {
+    return [self colorWithWhite:0.976f alpha:1.0];
+}
+
 @end

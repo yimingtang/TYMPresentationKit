@@ -8,13 +8,13 @@
 
 @import Foundation;
 
-@class TYMPage;
 @protocol TYMDescriptorDelegate;
 
 @interface TYMDescriptor : NSObject
 
 @property (nonatomic, weak) id<TYMDescriptorDelegate> delegate;
-@property (nonatomic, weak) TYMPage *page;
+@property (nonatomic, weak, readonly) TYMDescriptor *superDescriptor;
+@property (nonatomic, copy, readonly) NSArray *subDescriptors;
 
 + (instancetype)descriptorWithDictionary:(NSDictionary *)dictionary;
 + (NSString *)descriptorName;

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yiming Tang. All rights reserved.
 //
 
-@import UIKit;
+#import <TYMPresentationKit/TYMPresentationViewController.h>
 
-@interface TYMDemoViewController : UIViewController
+@interface TYMDemoViewController : TYMPresentationViewController
 
 @end

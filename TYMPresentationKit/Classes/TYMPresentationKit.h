@@ -15,7 +15,7 @@
 
 // View Controllers
 #import "TYMPresentationViewController.h"
-#import "TYMPageViewController.h"
+#import "TYMPageContentViewController.h"
 #import "TYMEditPageViewController.h"
 #import "TYMEditDescriptorViewController.h"
 #import "TYMEditTextViewController.h"

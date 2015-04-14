@@ -18,7 +18,8 @@
 #pragma mark - Accessors
 
 @synthesize delegate = _delegate;
-@synthesize page = _page;
+@synthesize subDescriptors = _subDescriptors;
+@synthesize superDescriptor = _superDescriptor;
 
 
 #pragma mark - Class Cluster
