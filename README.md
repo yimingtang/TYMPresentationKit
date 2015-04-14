@@ -5,6 +5,10 @@
 [![License](https://img.shields.io/cocoapods/l/TYMPresentationKit.svg?style=flat)](http://cocoapods.org/pods/TYMPresentationKit)
 [![Platform](https://img.shields.io/cocoapods/p/TYMPresentationKit.svg?style=flat)](http://cocoapods.org/pods/TYMPresentationKit)
 
+## Note
+
+**This library is still under construction.**
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
