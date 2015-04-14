@@ -17,11 +17,6 @@ NSString *const kTYMPageDescriptorsKey = @"descriptors";
 NSString *const kTYMPageNextPageKey = @"next";
 NSString *const kTYMPagePreviousPageKey = @"previous";
 
-@interface TYMPage ()
-
-@property (nonatomic) NSMutableArray *mutableDescriptors;
-
-@end
 
 @implementation TYMPage
 
@@ -31,9 +26,8 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 @synthesize note = _note;
 @synthesize author = _author;
 @synthesize revision = _revision;
-@synthesize previousPageName = _previousPageName;
 @synthesize nextPageName = _nextPageName;
-@synthesize mutableDescriptors = _mutableDescriptors;
+@synthesize previousPageName = _previousPageName;
 
 
 #pragma mark - Class Methods
@@ -91,14 +85,6 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 }
 
 
-#pragma mark - NSObject
-
-- (NSString *)description {
-    //    return [NSString stringWithFormat:@"[%@] %@: %@;\r%@: %@;\r%@: %@;\r", [self class], kCBTSlideTitleKey, self.title, kCBTSlideAuthorKey, self.author, kCBTSlideImageNameKey, self.imageName];
-    return nil;
-}
-
-
 #pragma mark - Initialization
 
 - (instancetype)initWithContentsOfFile:(NSString *)path {
@@ -129,26 +115,42 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 }
 
 
+#pragma mark - TYMDescriptor
+
++ (NSString *)descriptorName {
+    return @"page";
+}
+
+
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    if ((self = [super init])) {
+    if ((self = [super initWithDictionary:dictionary])) {
         _author = [dictionary tym_objectForKey:kTYMPageAuthorKey];
         _note = [dictionary tym_objectForKey:kTYMPageNoteKey];
         _revision = [dictionary tym_objectForKey:kTYMPageRevisionKey];
         _nextPageName = [dictionary tym_objectForKey:kTYMPageNextPageKey];
         _previousPageName = [dictionary tym_objectForKey:kTYMPagePreviousPageKey];
-        
-        NSArray *array = [dictionary tym_objectForKey:kTYMPageDescriptorsKey];
-        TYMDescriptor *descriptor = nil;
-        _mutableDescriptors = [NSMutableArray array];
-        for (NSDictionary *dictionary in array) {
-            descriptor = [TYMDescriptor descriptorWithDictionary:dictionary];
-            if (descriptor) {
-//                descriptor.page = self;
-                [_mutableDescriptors addObject:descriptor];
-            }
-        }
     }
     return self;
+}
+
+
+- (NSArray *)renderedView {
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:self.subdescriptors.count];
+    [self.subdescriptors enumerateObjectsUsingBlock:^(TYMDescriptor *descriptor, NSUInteger idx, BOOL *stop) {
+        [mutableArray addObject:[descriptor renderedView]];
+    }];
+    return mutableArray;
+}
+
+
+- (NSDictionary *)customDescriptorInfo {
+    return @{
+        kTYMPageAuthorKey: self.author,
+        kTYMPageRevisionKey: self.revision,
+        kTYMPageNoteKey: self.note,
+        kTYMPagePreviousPageKey: self.previousPageName,
+        kTYMPageNextPageKey: self.nextPageName,
+    };
 }
 
 
@@ -161,40 +163,6 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 
 - (TYMPage *)previousPage {
     return [TYMPage pageNamed:self.previousPageName];
-}
-
-
-- (NSArray *)descriptors {
-    return [self.mutableDescriptors copy];
-}
-
-
-- (NSArray *)renderedViews {
-    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:self.descriptors.count];
-    [self.descriptors enumerateObjectsUsingBlock:^(TYMDescriptor *descriptor, NSUInteger idx, BOOL *stop) {
-        [mutableArray addObject:[descriptor renderedView]];
-    }];
-    return mutableArray;
-}
-
-
-- (void)removeDescriptorAtIndex:(NSUInteger)index {
-    [self.mutableDescriptors removeObjectAtIndex:index];
-}
-
-
-- (void)addDescriptor:(TYMDescriptor *)descriptor {
-    [self.mutableDescriptors addObject:descriptor];
-}
-
-
-- (void)exchangeDescriptorAtIndex:(NSUInteger)idx1 withDescriptorAtIndex:(NSUInteger)idx2 {
-    [self.mutableDescriptors exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
-}
-
-
-- (void)insertDescriptor:(TYMDescriptor *)descriptor atIndex:(NSUInteger)index {
-    [self.mutableDescriptors insertObject:descriptor atIndex:index];
 }
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Yiming Tang. All rights reserved.
 //
 
-@import Foundation;
+#import "TYMDescriptor.h"
 
-@interface TYMSection : NSObject
+@interface TYMSection : TYMDescriptor
 
 @end
