@@ -5,10 +5,10 @@
   "note": "Another example page.",
   "previous": "page-1",
   "next": "page-3",
-  "descriptors": [
+  "subdescriptors": [
     {
       "type": "text",
-      "text": [
+      "content": [
         "### Code",
         "Cum sociis natoque penatibus et magnis dis `code element` montes, nascetur ridiculus mus.",
         "",

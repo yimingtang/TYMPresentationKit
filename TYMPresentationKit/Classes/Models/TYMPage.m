@@ -13,7 +13,6 @@
 NSString *const kTYMPageAuthorKey = @"author";
 NSString *const kTYMPageNoteKey = @"note";
 NSString *const kTYMPageRevisionKey = @"revision";
-NSString *const kTYMPageDescriptorsKey = @"descriptors";
 NSString *const kTYMPageNextPageKey = @"next";
 NSString *const kTYMPagePreviousPageKey = @"previous";
 
@@ -22,7 +21,6 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 
 #pragma mark - Accessors
 
-@synthesize name = _name;
 @synthesize note = _note;
 @synthesize author = _author;
 @synthesize revision = _revision;
@@ -30,94 +28,9 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 @synthesize previousPageName = _previousPageName;
 
 
-#pragma mark - Class Methods
-
-+ (NSCache *)_cache {
-    static NSCache *cache = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        cache = [[NSCache alloc] init];
-    });
-    return cache;
-}
-
-
-+ (instancetype)pageNamed:(NSString *)name {
-    return [self pageNamed:name inBundle:nil];
-}
-
-
-+ (instancetype)pageNamed:(NSString *)name inBundle:(NSBundle *)bundleOrNil {
-    if (!name) {
-        return nil;
-    }
-    
-    TYMPage *cachedPage = [[self _cache] objectForKey:name];
-    
-    if (!cachedPage) {
-        if (!bundleOrNil) {
-            bundleOrNil = [NSBundle mainBundle];
-        }
-        
-        NSString *fileName = [[name pathComponents] lastObject];
-        NSString *fileExtension = [name pathExtension];
-        if ([fileExtension isEqualToString:@""]) {
-            fileExtension = @"json";
-        }
-        
-        NSString *path = [bundleOrNil pathForResource:fileName ofType:fileExtension];
-        if (!path) {
-            NSLog(@"[TYMPage] Could not find file named: %@ in bundle: %@", name, bundleOrNil.bundleIdentifier);
-        } else {
-            cachedPage = [[self alloc] initWithContentsOfFile:path];
-            if (cachedPage) {
-                [[self _cache] setObject:cachedPage forKey:name];
-            }
-        }
-    }
-    
-    return cachedPage;
-}
-
-
-+ (instancetype)pageWithDictionary:(NSDictionary *)dictionary {
-    return [[self alloc] initWithDictionary:dictionary];
-}
-
-
-#pragma mark - Initialization
-
-- (instancetype)initWithContentsOfFile:(NSString *)path {
-    NSURL *fileURL = [NSURL fileURLWithPath:path];
-    
-    if (!fileURL) {
-        NSLog(@"[TYMPage] NSURL is nil for path: %@", path);
-        return nil;
-    }
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
-        NSLog(@"[TYMPage] File doesn't exist at path: %@", path);
-        return nil;
-    }
-    
-    NSData *data = [NSData dataWithContentsOfURL:fileURL];
-    NSError *error = nil;
-    NSDictionary *dictionary =  [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)kNilOptions error:&error];
-    if (error) {
-        NSLog(@"[TYMPage] Can't read json file at path: %@, error: %@", path, error);
-        return nil;
-    }
-    
-    if ((self = [self initWithDictionary:dictionary])) {
-        _name = [[path pathComponents] lastObject];
-    }
-    return self;
-}
-
-
 #pragma mark - TYMDescriptor
 
-+ (NSString *)descriptorName {
++ (NSString *)descriptorTypeName {
     return @"page";
 }
 
@@ -134,12 +47,42 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 }
 
 
-- (NSArray *)renderedView {
-    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:self.subdescriptors.count];
+- (UIView *)renderedView {
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = YES;
+    scrollView.alwaysBounceVertical = YES;
+    scrollView.backgroundColor = [UIColor whiteColor];
+    
+    NSMutableArray *subViews = [NSMutableArray arrayWithCapacity:self.subdescriptors.count];
     [self.subdescriptors enumerateObjectsUsingBlock:^(TYMDescriptor *descriptor, NSUInteger idx, BOOL *stop) {
-        [mutableArray addObject:[descriptor renderedView]];
+        UIView *view = [descriptor renderedView];
+        if (view) {
+            view.translatesAutoresizingMaskIntoConstraints = NO;
+            [subViews addObject:view];
+            [scrollView addSubview:view];
+        }
     }];
-    return mutableArray;
+    
+    UIView *lastView = nil;
+    for (UIView *view in subViews) {
+        if (lastView) {
+            [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeBottom multiplier:1 constant:10.0]];
+        } else {
+            [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:scrollView attribute:NSLayoutAttributeTop multiplier:1 constant:10.0]];
+        }
+        
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:scrollView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0.0]];
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:scrollView attribute:NSLayoutAttributeWidth multiplier:1 constant:0.0]];
+        
+        lastView = view;
+    }
+    
+    if (lastView) {
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeBottom multiplier:1 constant:0.0]];
+    }
+    
+    return scrollView;
 }
 
 
@@ -148,8 +91,8 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
         kTYMPageAuthorKey: self.author,
         kTYMPageRevisionKey: self.revision,
         kTYMPageNoteKey: self.note,
-        kTYMPagePreviousPageKey: self.previousPageName,
-        kTYMPageNextPageKey: self.nextPageName,
+        kTYMPagePreviousPageKey: self.previousPageName ? : [NSNull null],
+        kTYMPageNextPageKey: self.nextPageName ? : [NSNull null],
     };
 }
 
@@ -157,12 +100,12 @@ NSString *const kTYMPagePreviousPageKey = @"previous";
 #pragma mark - Public
 
 - (TYMPage *)nextPage {
-    return [TYMPage pageNamed:self.nextPageName];
+    return [TYMPage descriptorNamed:self.nextPageName];
 }
 
 
 - (TYMPage *)previousPage {
-    return [TYMPage pageNamed:self.previousPageName];
+    return [TYMPage descriptorNamed:self.previousPageName];
 }
 
 @end

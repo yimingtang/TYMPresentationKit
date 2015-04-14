@@ -8,8 +8,6 @@
 
 @import UIKit;
 
-#import "TYMDemoViewController.h"
-
 @interface TYMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic) UIWindow *window;

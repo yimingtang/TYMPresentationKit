@@ -63,6 +63,8 @@
     if (!_reverseButton) {
         _reverseButton = [[UIButton alloc] init];
         _reverseButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_reverseButton setTitle:@"Previous" forState:UIControlStateNormal];
+        [_reverseButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     }
     return _reverseButton;
 }
@@ -72,6 +74,8 @@
     if (!_forwardButton) {
         _forwardButton = [[UIButton alloc] init];
         _forwardButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_forwardButton setTitle:@"Next" forState:UIControlStateNormal];
+        [_forwardButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     }
     return _forwardButton;
 }

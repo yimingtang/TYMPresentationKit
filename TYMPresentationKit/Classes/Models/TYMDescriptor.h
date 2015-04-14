@@ -15,13 +15,17 @@ extern NSString *const kTYMDescriptorSubdescriptorsKey;
 
 @interface TYMDescriptor : NSObject
 
+@property (nonatomic, copy, readonly) NSString *name; // usually file name
 @property (nonatomic) NSInteger tag;
 @property (nonatomic, weak) id<TYMDescriptorDelegate> delegate;
 
++ (NSString *)descriptorTypeName;
 + (instancetype)descriptorWithDictionary:(NSDictionary *)dictionary;
-+ (NSString *)descriptorName;
++ (instancetype)descriptorNamed:(NSString *)name;
++ (instancetype)descriptorNamed:(NSString *)name inBundle:(NSBundle *)bundleOrNil;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithContentsOfFile:(NSString *)path;
 - (UIView *)renderedView;
 - (NSDictionary *)dictionaryRepresentation;
 - (NSDictionary *)customDescriptorInfo;

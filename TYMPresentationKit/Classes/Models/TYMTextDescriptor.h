@@ -8,6 +8,12 @@
 
 #import "TYMDescriptor.h"
 
+extern NSString *const kTYMTextDescriptorContentKey;
+
 @interface TYMTextDescriptor : TYMDescriptor
+
+@property (nonatomic, copy) NSString *content;
+
+- (NSAttributedString *)attributedText;
 
 @end

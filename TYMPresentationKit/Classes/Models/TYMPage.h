@@ -16,18 +16,12 @@ extern NSString *const kTYMPagePreviousPageKey;
 
 @interface TYMPage : TYMDescriptor
 
-@property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSString *revision;
 @property (nonatomic, copy) NSString *note;
 @property (nonatomic, copy) NSString *previousPageName;
 @property (nonatomic, copy) NSString *nextPageName;
 
-+ (instancetype)pageNamed:(NSString *)name;
-+ (instancetype)pageNamed:(NSString *)name inBundle:(NSBundle *)bundleOrNil;
-+ (instancetype)pageWithDictionary:(NSDictionary *)dictionary;
-
-- (instancetype)initWithContentsOfFile:(NSString *)path;
 - (TYMPage *)nextPage;
 - (TYMPage *)previousPage;
 

@@ -29,10 +29,21 @@ NSString *const kTYMDescriptorTypeKey = @"type";
 #pragma mark - Accessors
 
 @dynamic subdescriptors;
+@synthesize name = _name;
 @synthesize tag = _tag;
 @synthesize delegate = _delegate;
 @synthesize superdescriptor = _superdescriptor;
 @synthesize mutableSubdescriptors = _mutableSubdescriptors;
+
+
++ (NSCache *)_cache {
+    static NSCache *cache = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cache = [[NSCache alloc] init];
+    });
+    return cache;
+}
 
 
 - (NSMutableArray *)mutableSubdescriptors {
@@ -75,13 +86,81 @@ NSString *const kTYMDescriptorTypeKey = @"type";
 }
 
 
-+ (NSString *)descriptorName {
+#pragma mark - Class Methods
+
++ (NSString *)descriptorTypeName {
     // Subclasses may override this method
     return @"descriptor";
 }
 
 
-#pragma mark - NSObjecy
++ (instancetype)descriptorNamed:(NSString *)name {
+    return [self descriptorNamed:name inBundle:nil];
+}
+
+
++ (instancetype)descriptorNamed:(NSString *)name inBundle:(NSBundle *)bundleOrNil {
+    if (!name) {
+        return nil;
+    }
+    
+    TYMDescriptor *cachedDescriptor = [[self _cache] objectForKey:name];
+    
+    if (!cachedDescriptor) {
+        if (!bundleOrNil) {
+            bundleOrNil = [NSBundle mainBundle];
+        }
+        
+        NSString *fileName = [[name pathComponents] lastObject];
+        NSString *fileExtension = [name pathExtension];
+        if ([fileExtension isEqualToString:@""]) {
+            fileExtension = @"json";
+        }
+        
+        NSString *path = [bundleOrNil pathForResource:fileName ofType:fileExtension];
+        if (!path) {
+            NSLog(@"[TYMDescriptor] Could not find file named: %@ in bundle: %@", name, bundleOrNil.bundleIdentifier);
+        } else {
+            cachedDescriptor = [[self alloc] initWithContentsOfFile:path];
+            if (cachedDescriptor) {
+                [[self _cache] setObject:cachedDescriptor forKey:name];
+            }
+        }
+    }
+    
+    return cachedDescriptor;
+}
+
+
+#pragma mark - Initialization
+
+- (instancetype)initWithContentsOfFile:(NSString *)path {
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+    
+    if (!fileURL) {
+        NSLog(@"[TYMPage] NSURL is nil for path: %@", path);
+        return nil;
+    }
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
+        NSLog(@"[TYMPage] File doesn't exist at path: %@", path);
+        return nil;
+    }
+    
+    NSData *data = [NSData dataWithContentsOfURL:fileURL];
+    NSError *error = nil;
+    NSDictionary *dictionary =  [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)kNilOptions error:&error];
+    if (error) {
+        NSLog(@"[TYMPage] Can't read json file at path: %@, error: %@", path, error);
+        return nil;
+    }
+    
+    if ((self = [self initWithDictionary:dictionary])) {
+        _name = [[path pathComponents] lastObject];
+    }
+    return self;
+}
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if ((self = [super init])) {
@@ -98,6 +177,8 @@ NSString *const kTYMDescriptorTypeKey = @"type";
 }
 
 
+#pragma mark - NSObject
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"[%@]: %@", [self class], [self dictionaryRepresentation]];
 }
@@ -113,7 +194,7 @@ NSString *const kTYMDescriptorTypeKey = @"type";
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionary];
-    [mutableDictionary setObject:[[self class] descriptorName] forKey:kTYMDescriptorTypeKey];
+    [mutableDictionary setObject:[[self class] descriptorTypeName] forKey:kTYMDescriptorTypeKey];
     NSMutableArray *dictionaryArray = [NSMutableArray arrayWithCapacity:self.subdescriptors.count];
     for (TYMDescriptor *subdescriptor in self.subdescriptors) {
         [dictionaryArray addObject:[subdescriptor dictionaryRepresentation]];

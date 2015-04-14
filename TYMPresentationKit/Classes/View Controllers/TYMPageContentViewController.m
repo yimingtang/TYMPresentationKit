@@ -7,10 +7,10 @@
 //
 
 #import "TYMPageContentViewController.h"
+#import "TYMPage.h"
 
 @interface TYMPageContentViewController ()
-@property (nonatomic) UIScrollView *scrollView;
-@property (nonatomic) NSArray *renderedViews;
+@property (nonatomic) UIView *contentView;
 @end
 
 @implementation TYMPageContentViewController
@@ -18,19 +18,6 @@
 #pragma mark - Accessors
 
 @synthesize page = _page;
-@synthesize scrollView = _scrollView;
-@synthesize renderedViews = _renderedViews;
-
-- (UIScrollView *)scrollView {
-    if (!_scrollView) {
-        _scrollView = [[UIScrollView alloc] init];
-        _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.showsVerticalScrollIndicator = YES;
-        _scrollView.alwaysBounceVertical = YES;
-        _scrollView.backgroundColor = [UIColor whiteColor];
-    }
-    return _scrollView;
-}
 
 
 #pragma mark - NSObject
@@ -38,6 +25,7 @@
 - (instancetype)initWithPage:(TYMPage *)page {
     if ((self = [super init])) {
         _page = page;
+        NSLog(@"%@", page);
     }
     return self;
 }
@@ -49,11 +37,9 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.scrollView];
-    
-    [self.renderedViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        [self.scrollView addSubview:view];
-    }];
+    self.contentView = [self.page renderedView];
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.contentView];
     
     [self setupViewConstraints];
 }
@@ -62,6 +48,10 @@
 #pragma mark - Private Methods
 
 - (void)setupViewConstraints {
-    
+    NSDictionary *views = @{
+        @"contentView": self.contentView,
+    };
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentView]|" options:kNilOptions metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentView]|" options:kNilOptions metrics:nil views:views]];
 }
 @end

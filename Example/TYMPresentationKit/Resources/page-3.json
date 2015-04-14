@@ -5,10 +5,10 @@
   "note": "Page 3",
   "previous": "page-3",
   "next": null,
-  "descriptors": [
+  "subdescriptors": [
     {
       "type": "text",
-      "text": [
+      "content": [
         "<dl>",
         "<dt>HyperText Markup Language (HTML)</dt>",
         "<dd>The language used to describe and define the content of a Web page</dd>",
