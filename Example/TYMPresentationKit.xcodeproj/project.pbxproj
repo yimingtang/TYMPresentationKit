@@ -14,7 +14,7 @@
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* TYMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* TYMAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* TYMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TYMViewController.m */; };
+		6003F5A7195388D20070C39A /* TYMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TYMDemoViewController.m */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -45,8 +45,8 @@
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* TYMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TYMAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* TYMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TYMAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* TYMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TYMViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* TYMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TYMViewController.m; sourceTree = "<group>"; };
+		6003F5A5195388D20070C39A /* TYMDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TYMDemoViewController.h; sourceTree = "<group>"; };
+		6003F5A6195388D20070C39A /* TYMDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TYMDemoViewController.m; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
@@ -92,8 +92,8 @@
 			children = (
 				6003F59C195388D20070C39A /* TYMAppDelegate.h */,
 				6003F59D195388D20070C39A /* TYMAppDelegate.m */,
-				6003F5A5195388D20070C39A /* TYMViewController.h */,
-				6003F5A6195388D20070C39A /* TYMViewController.m */,
+				6003F5A5195388D20070C39A /* TYMDemoViewController.h */,
+				6003F5A6195388D20070C39A /* TYMDemoViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* TYMAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* TYMViewController.m in Sources */,
+				6003F5A7195388D20070C39A /* TYMDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
