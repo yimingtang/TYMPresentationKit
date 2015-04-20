@@ -1,9 +1,9 @@
 {
-  "type": "page",
+  "type": "slide",
   "author": "Yiming Tang",
   "revision": "1",
   "note": "Page 3",
-  "previous": "page-3",
+  "previous": "slide-3",
   "next": null,
   "subdescriptors": [
     {

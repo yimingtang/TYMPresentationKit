@@ -8,15 +8,15 @@
 
 
 // Models
-#import "TYMPage.h"
+#import "TYMSlide.h"
 #import "TYMSection.h"
 #import "TYMChapter.h"
 #import "TYMContents.h"
 
 // View Controllers
 #import "TYMPresentationViewController.h"
-#import "TYMPageContentViewController.h"
-#import "TYMEditPageViewController.h"
+#import "TYMSlideViewController.h"
+#import "TYMEditSlideViewController.h"
 #import "TYMEditDescriptorViewController.h"
 #import "TYMEditTextViewController.h"
 #import "TYMEditImageViewController.h"

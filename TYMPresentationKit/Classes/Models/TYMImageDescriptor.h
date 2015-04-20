@@ -8,6 +8,10 @@
 
 #import "TYMDescriptor.h"
 
+extern NSString *const kTYMImageDescriptorURLKey;
+
 @interface TYMImageDescriptor : TYMDescriptor
+
+@property (nonatomic, copy) NSString *imageURLString;
 
 @end

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		200D0D3A1ADD321A002D7DD4 /* page-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 200D0D391ADD321A002D7DD4 /* page-1.json */; };
-		200D0D3C1ADD36D5002D7DD4 /* page-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 200D0D3B1ADD36D5002D7DD4 /* page-2.json */; };
-		200D0D3E1ADD36ED002D7DD4 /* page-3.json in Resources */ = {isa = PBXBuildFile; fileRef = 200D0D3D1ADD36ED002D7DD4 /* page-3.json */; };
+		200D0D3A1ADD321A002D7DD4 /* slide-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 200D0D391ADD321A002D7DD4 /* slide-1.json */; };
+		200D0D3C1ADD36D5002D7DD4 /* slide-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 200D0D3B1ADD36D5002D7DD4 /* slide-2.json */; };
+		200D0D3E1ADD36ED002D7DD4 /* slide-3.json in Resources */ = {isa = PBXBuildFile; fileRef = 200D0D3D1ADD36ED002D7DD4 /* slide-3.json */; };
 		20F035D81ADB97EC0079AFC2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 20F035D61ADB97EC0079AFC2 /* InfoPlist.strings */; };
 		20F035DA1ADB9D100079AFC2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20F035D91ADB9D100079AFC2 /* Images.xcassets */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -38,9 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		200D0D391ADD321A002D7DD4 /* page-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "page-1.json"; sourceTree = "<group>"; };
-		200D0D3B1ADD36D5002D7DD4 /* page-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "page-2.json"; sourceTree = "<group>"; };
-		200D0D3D1ADD36ED002D7DD4 /* page-3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "page-3.json"; sourceTree = "<group>"; };
+		200D0D391ADD321A002D7DD4 /* slide-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "slide-1.json"; sourceTree = "<group>"; };
+		200D0D3B1ADD36D5002D7DD4 /* slide-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "slide-2.json"; sourceTree = "<group>"; };
+		200D0D3D1ADD36ED002D7DD4 /* slide-3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "slide-3.json"; sourceTree = "<group>"; };
 		20F035D71ADB97EC0079AFC2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		20F035D91ADB9D100079AFC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* TYMPresentationKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TYMPresentationKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,9 +115,9 @@
 		20F035D51ADB973E0079AFC2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				200D0D391ADD321A002D7DD4 /* page-1.json */,
-				200D0D3B1ADD36D5002D7DD4 /* page-2.json */,
-				200D0D3D1ADD36ED002D7DD4 /* page-3.json */,
+				200D0D391ADD321A002D7DD4 /* slide-1.json */,
+				200D0D3B1ADD36D5002D7DD4 /* slide-2.json */,
+				200D0D3D1ADD36ED002D7DD4 /* slide-3.json */,
 				20F035D91ADB9D100079AFC2 /* Images.xcassets */,
 				6003F595195388D20070C39A /* TYMPresentationKit-Info.plist */,
 				20F035D61ADB97EC0079AFC2 /* InfoPlist.strings */,
@@ -279,11 +279,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				200D0D3C1ADD36D5002D7DD4 /* page-2.json in Resources */,
+				200D0D3C1ADD36D5002D7DD4 /* slide-2.json in Resources */,
 				20F035D81ADB97EC0079AFC2 /* InfoPlist.strings in Resources */,
 				20F035DA1ADB9D100079AFC2 /* Images.xcassets in Resources */,
-				200D0D3A1ADD321A002D7DD4 /* page-1.json in Resources */,
-				200D0D3E1ADD36ED002D7DD4 /* page-3.json in Resources */,
+				200D0D3A1ADD321A002D7DD4 /* slide-1.json in Resources */,
+				200D0D3E1ADD36ED002D7DD4 /* slide-3.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

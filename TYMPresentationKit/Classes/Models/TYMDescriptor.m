@@ -11,6 +11,7 @@
 #import "TYMImageDescriptor.h"
 #import "TYMTextDescriptor.h"
 #import "TYMTextFieldDescriptor.h"
+#import "TYMRenderer.h"
 #import "NSDictionary+TYMPresentationKit.h"
 
 NSString *const kTYMDescriptorSubdescriptorsKey = @"subdescriptors";
@@ -186,9 +187,18 @@ NSString *const kTYMDescriptorTypeKey = @"type";
 
 #pragma mark - Public
 
-- (UIView *)renderedView {
-    // Subclasses must override this method
-    return nil;
+- (Class)rendererClass {
+    return [TYMRenderer class];
+}
+
+
+- (TYMRenderer *)renderer {
+    return [[self rendererClass] rendererWithDescriptor:self];
+}
+
+
+- (UIView *)renderView {
+    return [[self renderer] renderView];
 }
 
 

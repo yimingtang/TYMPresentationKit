@@ -8,18 +8,18 @@
 
 @import UIKit;
 
-@class TYMPage;
-@class TYMPageContentViewController;
+@class TYMSlide;
+@class TYMSlideViewController;
 @protocol TYMPresentationViewControllerDelegate;
 
 @interface TYMPresentationViewController : UIViewController
 
-@property (nonatomic, readonly) TYMPage *rootPage;
-@property (nonatomic, readonly) TYMPage *currentPage;
-@property (nonatomic, readonly) TYMPageContentViewController *currentPageContentViewController;
+@property (nonatomic, readonly) TYMSlide *rootSlide;
+@property (nonatomic, readonly) TYMSlide *currentSlide;
+@property (nonatomic, readonly) TYMSlideViewController *currentSlideViewController;
 @property (nonatomic, weak) id<TYMPresentationViewControllerDelegate> delegate;
 
-- (instancetype)initWithRootPage:(TYMPage *)aPage;
+- (instancetype)initWithRootSlide:(TYMSlide *)aSlide;
 - (void)showNext;
 - (void)showPrevious;
 
@@ -28,12 +28,12 @@
 
 @protocol TYMPresentationViewControllerDelegate <NSObject>
 @optional
-- (BOOL)presentationViewController:(TYMPresentationViewController *)viewController shouldShowNextPage:(TYMPage *)page;
-- (void)presentationViewController:(TYMPresentationViewController *)viewController willShowNextPage:(TYMPage *)page;
-- (void)presentationViewController:(TYMPresentationViewController *)viewController didShowNextPage:(TYMPage *)page;
-- (BOOL)presentationViewController:(TYMPresentationViewController *)viewController shouldShowPreviousPage:(TYMPage *)page;
-- (void)presentationViewController:(TYMPresentationViewController *)viewController willShowPreviousPage:(TYMPage *)page;
-- (void)presentationViewController:(TYMPresentationViewController *)viewController didShowPreviousPage:(TYMPage *)page;
+- (BOOL)presentationViewController:(TYMPresentationViewController *)viewController shouldShowNextSlide:(TYMSlide *)slide;
+- (void)presentationViewController:(TYMPresentationViewController *)viewController willShowNextSlide:(TYMSlide *)slide;
+- (void)presentationViewController:(TYMPresentationViewController *)viewController didShowNextSlide:(TYMSlide *)slide;
+- (BOOL)presentationViewController:(TYMPresentationViewController *)viewController shouldShowPreviousSlide:(TYMSlide *)slide;
+- (void)presentationViewController:(TYMPresentationViewController *)viewController willShowPreviousSlide:(TYMSlide *)slide;
+- (void)presentationViewController:(TYMPresentationViewController *)viewController didShowPreviousSlide:(TYMSlide *)slide;
 - (void)presentationViewControllerDidReachTheEnd;
 - (void)presentationViewControllerDidReachTheBeginning;
 

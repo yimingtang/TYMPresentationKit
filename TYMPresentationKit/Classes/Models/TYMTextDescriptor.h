@@ -10,10 +10,8 @@
 
 extern NSString *const kTYMTextDescriptorContentKey;
 
-@interface TYMTextDescriptor : TYMDescriptor
+@interface TYMTextDescriptor : TYMDescriptor <UITextViewDelegate>
 
 @property (nonatomic, copy) NSString *content;
-
-- (NSAttributedString *)attributedText;
 
 @end

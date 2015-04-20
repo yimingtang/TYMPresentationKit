@@ -8,7 +8,7 @@
 
 #import "TYMAppDelegate.h"
 #import "TYMDemoViewController.h"
-#import  <TYMPresentationKit/TYMPage.h>
+#import  <TYMPresentationKit/TYMSlide.h>
 
 @implementation TYMAppDelegate
 
@@ -28,7 +28,7 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window.rootViewController = [[TYMDemoViewController alloc] initWithRootPage:[TYMPage descriptorNamed:@"page-1"]];
+    self.window.rootViewController = [[TYMDemoViewController alloc] initWithRootSlide:[TYMSlide descriptorNamed:@"slide-1"]];
     [self.window makeKeyAndVisible];
     return YES;
 }

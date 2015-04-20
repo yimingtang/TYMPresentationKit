@@ -7,9 +7,9 @@
 //
 
 #import "TYMPresentationViewController.h"
-#import "TYMPageContentViewController.h"
+#import "TYMSlideViewController.h"
 #import "TYMPlaceholderView.h"
-#import "TYMPage.h"
+#import "TYMSlide.h"
 #import "UIColor+TYMPresentationKit.h"
 
 @interface TYMPresentationViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
@@ -26,14 +26,14 @@
 
 #pragma mark - Accessors
 
-@dynamic currentPageContentViewController;
-@dynamic currentPage;
+@dynamic currentSlideViewController;
+@dynamic currentSlide;
 @synthesize pageViewController = _pageViewController;
 @synthesize forwardButton = _forwardButton;
 @synthesize reverseButton = _reverseButton;
 @synthesize noContentView = _noContentView;
 @synthesize controlsHidden = _controlsHidden;
-@synthesize rootPage = _rootPage;
+@synthesize rootSlide = _rootSlide;
 @synthesize delegate = _delegate;
 
 - (UIPageViewController *)pageViewController {
@@ -81,27 +81,25 @@
 }
 
 
-- (TYMPageContentViewController *)currentPageContentViewController {
+- (TYMSlideViewController *)currentSlideViewController {
     return [self.pageViewController.viewControllers firstObject];
 }
 
 
-- (TYMPage *)currentPage {
-    return self.currentPageContentViewController.page;
+- (TYMSlide *)currentSlide {
+    return self.currentSlideViewController.slide;
 }
 
 
 #pragma mark - NSObject
 
-- (instancetype)initWithRootPage:(TYMPage *)aPage {
+- (instancetype)initWithRootSlide:(TYMSlide *)aSlide {
     if ((self = [super init])) {
-        _rootPage = aPage;
+        _rootSlide = aSlide;
     }
     return self;
 }
 
-
-#pragma mark - UIViewController
 
 #pragma mark - UIViewController
 
@@ -123,12 +121,12 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControls:)];
     [self.view addGestureRecognizer:tap];
     
-    if (!self.rootPage) {
+    if (!self.rootSlide) {
         return;
     }
     
-    TYMPageContentViewController *pageContentViewController = [[TYMPageContentViewController alloc] initWithPage:self.rootPage];
-    [self.pageViewController setViewControllers:@[pageContentViewController]
+    TYMSlideViewController *slideViewController = [[TYMSlideViewController alloc] initWithSlide:self.rootSlide];
+    [self.pageViewController setViewControllers:@[slideViewController]
                                       direction:UIPageViewControllerNavigationDirectionForward
                                        animated:NO
                                      completion:nil];
@@ -160,7 +158,7 @@
 #pragma mark - Private Methods
 
 - (BOOL)hasContent {
-    return self.rootPage != nil;
+    return self.rootSlide != nil;
 }
 
 
@@ -262,28 +260,28 @@
 #pragma mark - UIPageViewControllerDataSource
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    TYMPageContentViewController *pageContentViewController = (TYMPageContentViewController *)viewController;
-    TYMPage *page = pageContentViewController.page;
-    TYMPage *previousPage = [page previousPage];
+    TYMSlideViewController *slideViewController = (TYMSlideViewController *)viewController;
+    TYMSlide *slide = slideViewController.slide;
+    TYMSlide *previousSlide = [slide previousSlide];
     
-    if (!previousPage) {
+    if (!previousSlide) {
         return nil;
     }
     
-    return [[TYMPageContentViewController alloc] initWithPage:previousPage];
+    return [[TYMSlideViewController alloc] initWithSlide:previousSlide];
 }
 
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    TYMPageContentViewController *pageContentViewController = (TYMPageContentViewController *)viewController;
-    TYMPage *page = pageContentViewController.page;
-    TYMPage *nextPage = [page nextPage];
+    TYMSlideViewController *slideViewController = (TYMSlideViewController *)viewController;
+    TYMSlide *slide = slideViewController.slide;
+    TYMSlide *nextSlide = [slide nextSlide];
     
-    if (!nextPage) {
+    if (!nextSlide) {
         return nil;
     }
     
-    return [[TYMPageContentViewController alloc] initWithPage:nextPage];
+    return [[TYMSlideViewController alloc] initWithSlide:nextSlide];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  TYMEditPageViewController.h
+//  TYMEditSlideViewController.h
 //  TYMPresentationKit
 //
 //  Created by Yiming Tang on 4/13/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TYMEditPageViewController : UIViewController
+@interface TYMEditSlideViewController : UIViewController
 
 @end

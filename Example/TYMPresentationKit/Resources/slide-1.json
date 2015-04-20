@@ -1,10 +1,10 @@
 {
-  "type": "page",
+  "type": "slide",
   "author": "Yiming Tang",
   "revision": "1",
   "note": "An example page.",
   "previous": null,
-  "next": "page-2",
+  "next": "slide-2",
   "subdescriptors": [
     {
       "type": "text",

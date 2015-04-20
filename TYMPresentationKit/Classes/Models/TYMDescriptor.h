@@ -11,6 +11,7 @@
 extern NSString *const kTYMDescriptorTypeKey;
 extern NSString *const kTYMDescriptorSubdescriptorsKey;
 
+@class TYMRenderer;
 @protocol TYMDescriptorDelegate;
 
 @interface TYMDescriptor : NSObject
@@ -26,10 +27,11 @@ extern NSString *const kTYMDescriptorSubdescriptorsKey;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (instancetype)initWithContentsOfFile:(NSString *)path;
-- (UIView *)renderedView;
 - (NSDictionary *)dictionaryRepresentation;
 - (NSDictionary *)customDescriptorInfo;
-
+- (Class)rendererClass;
+- (TYMRenderer *)renderer;
+- (UIView *)renderView;
 
 ///----------------------------------------
 /// @name Managing the Descriptor Hierarchy

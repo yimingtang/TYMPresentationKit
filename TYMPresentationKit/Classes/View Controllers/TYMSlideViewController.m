@@ -1,31 +1,30 @@
 //
-//  TYMPageViewController.m
+//  TYMSlideViewController.m
 //  TYMPresentationKit
 //
 //  Created by Yiming Tang on 4/13/15.
 //  Copyright (c) 2015 Yiming Tang. All rights reserved.
 //
 
-#import "TYMPageContentViewController.h"
-#import "TYMPage.h"
+#import "TYMSlideViewController.h"
+#import "TYMSlide.h"
 
-@interface TYMPageContentViewController ()
+@interface TYMSlideViewController ()
 @property (nonatomic) UIView *contentView;
 @end
 
-@implementation TYMPageContentViewController
+@implementation TYMSlideViewController
 
 #pragma mark - Accessors
 
-@synthesize page = _page;
+@synthesize slide = _slide;
 
 
 #pragma mark - NSObject
 
-- (instancetype)initWithPage:(TYMPage *)page {
+- (instancetype)initWithSlide:(TYMSlide *)slide {
     if ((self = [super init])) {
-        _page = page;
-        NSLog(@"%@", page);
+        _slide = slide;
     }
     return self;
 }
@@ -37,7 +36,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.contentView = [self.page renderedView];
+    self.contentView = [self.slide renderView];
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.contentView];
     

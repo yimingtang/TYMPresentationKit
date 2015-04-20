@@ -7,13 +7,11 @@
 //
 
 #import "TYMTextDescriptor.h"
+#import "TYMTextRenderer.h"
 #import "NSDictionary+TYMPresentationKit.h"
 
 NSString *const kTYMTextDescriptorContentKey = @"content";
 
-@interface TYMTextDescriptor () <UITextViewDelegate>
-
-@end
 
 @implementation TYMTextDescriptor
 
@@ -45,21 +43,8 @@ NSString *const kTYMTextDescriptorContentKey = @"content";
 }
 
 
-- (UIView *)renderedView {
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectZero];
-    textView.scrollEnabled = NO;
-    textView.editable = NO;
-    textView.delegate = self;
-    textView.dataDetectorTypes = UIDataDetectorTypeLink | UIDataDetectorTypeAddress | UIDataDetectorTypePhoneNumber;
-    textView.attributedText = [self attributedText];
-    return textView;
-}
-
-
-#pragma mark - Public
-
-- (NSAttributedString *)attributedText {
-    return [[NSAttributedString alloc] initWithString:self.content];
+- (Class)rendererClass {
+    return [TYMTextRenderer class];
 }
 
 @end
